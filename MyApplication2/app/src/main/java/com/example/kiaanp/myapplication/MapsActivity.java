@@ -23,6 +23,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
     String d = "default Description";
     String[] f = {"Science", "Commerce", "Humanities", "Engineering and Built Environment"};
 
+    Icon [] icon_list = {}; //Array of Icons
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private String pollybebe = "";
 
@@ -35,7 +37,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
         mMap.setOnMapClickListener(this);
         mMap.setOnMapLongClickListener(this);
 
-        //Set the camera focus to UCT, facing west
+        //Set the camera to focus on UCT and face west
         LatLng uctCoords = new LatLng(-33.957798800000000000, 18.461580899999944000);
         CameraPosition cameraPos = new CameraPosition.Builder().target(uctCoords).bearing(270).zoom(17).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
@@ -43,9 +45,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
         //Restrict Camera Zoom
 
         //Resrict Camera Boundary
-       // LatLngBounds allowedBounds = new LatLngBounds(new LatLng(-33.954017, 18.459708),new LatLng(-33.960950, 18.458798));
-        //var lastValidCenter = mMap.getCenter;
-
 
 
         PolygonOptions rectOptions;
