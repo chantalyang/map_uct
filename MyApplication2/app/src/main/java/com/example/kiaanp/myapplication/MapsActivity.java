@@ -1,6 +1,7 @@
 package com.example.kiaanp.myapplication;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -8,9 +9,12 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
@@ -136,17 +140,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
         zoo.setPolygon(mMap, new LatLng(-33.955932692005554, 18.460945934057236),new LatLng(-33.9559349168105, 18.461136370897293),new LatLng(-33.95597524139004, 18.461135029792786),new LatLng(-33.95597607569149, 18.46118364483118),new LatLng(-33.95596578597311, 18.461182303726673),new LatLng(-33.95596689837515, 18.461285568773746),new LatLng(-33.95619994628334, 18.46127651631832),new LatLng(-33.95619688718606, 18.461164869368076),new LatLng(-33.956293943946335, 18.461159840226173),new LatLng(-33.956297003040135, 18.46127148717642),new LatLng(-33.95650808024646, 18.461263440549374),new LatLng(-33.956503908765235, 18.461151458323002),new LatLng(-33.95652587856402, 18.461151458323002),new LatLng(-33.95651225172747, 18.460949957370758),new LatLng(-33.95644634230353, 18.460952639579773),new LatLng(-33.95644522990774, 18.46093889325857),new LatLng(-33.956039482577296, 18.460953310132027),new LatLng(-33.956039482577296, 18.46094224601984));
 
         //Setup Icons
-        -33.957180, 18.461133 //Post Office
-        -33.956998, 18.460559 //Juta Bookshop
-        -33.956904, 18.460757 //Food Court
-        -33.957225, 18.460467 //ATM
-        -33.957309, 18.460972 //Food = Frigo
-        -33.957581, 18.460322 //Library
+        //-33.957180, 18.461133 //Post Office
+      //  -33.956998, 18.460559 //Juta Bookshop
+      //  -33.956904, 18.460757 //Food Court
+     //   -33.957225, 18.460467 //ATM
+      //  -33.957309, 18.460972 //Food = Frigo
+      //  -33.957581, 18.460322 //Library
 
-        string iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        Marker cps = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(-33.957225, 18.460467))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_cps))
 
 
 
+        );
     }
 
     @Override
