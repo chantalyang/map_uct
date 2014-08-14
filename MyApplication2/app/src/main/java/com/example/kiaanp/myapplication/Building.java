@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.PolygonOptions;
 /**
  * Created by Noosrat on 2014/08/07.
  */
-public class Building extends GeographicalLocation{
+public class Building extends CustomOverlay {
 
     public String faculty;
     //public String polygon;
