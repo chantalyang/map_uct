@@ -1,6 +1,7 @@
 package com.example.kiaanp.myapplication;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -8,18 +9,26 @@ import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener {
 
     String d = "default Description";
     String[] f = {"Science", "Commerce", "Humanities", "Engineering and Built Environment"};
 
+    Icon [] iconList = {}; //Array of Icons
+
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private String pollybebe = "";
+  
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +39,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
         mMap.setOnMapClickListener(this);
         mMap.setOnMapLongClickListener(this);
 
-        //Set the camera focus to UCT
-
-        CameraPosition cameraPos = new CameraPosition.Builder().target(new LatLng(-33.957798800000000000, 18.461580899999944000)).bearing(270).zoom(18).build();
+        //Set the camera to focus on UCT and face west
+        LatLng uctCoords = new LatLng(-33.957798800000000000, 18.461580899999944000);
+        CameraPosition cameraPos = new CameraPosition.Builder().target(uctCoords).bearing(270).zoom(17).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPos));
 
+        //Restrict Camera Zoom
 
+        //Resrict Camera Boundary
+
+        /* Draw Polygons for Buildings */
         PolygonOptions rectOptions;
         Polygon polygon;
 
@@ -128,9 +141,149 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
         zoo.setPolygon(mMap, new LatLng(-33.955932692005554, 18.460945934057236),new LatLng(-33.9559349168105, 18.461136370897293),new LatLng(-33.95597524139004, 18.461135029792786),new LatLng(-33.95597607569149, 18.46118364483118),new LatLng(-33.95596578597311, 18.461182303726673),new LatLng(-33.95596689837515, 18.461285568773746),new LatLng(-33.95619994628334, 18.46127651631832),new LatLng(-33.95619688718606, 18.461164869368076),new LatLng(-33.956293943946335, 18.461159840226173),new LatLng(-33.956297003040135, 18.46127148717642),new LatLng(-33.95650808024646, 18.461263440549374),new LatLng(-33.956503908765235, 18.461151458323002),new LatLng(-33.95652587856402, 18.461151458323002),new LatLng(-33.95651225172747, 18.460949957370758),new LatLng(-33.95644634230353, 18.460952639579773),new LatLng(-33.95644522990774, 18.46093889325857),new LatLng(-33.956039482577296, 18.460953310132027),new LatLng(-33.956039482577296, 18.46094224601984));
 
 
+        /* Setup Icons on Map */
+
+        mMap.setOnMarkerDragListener(this); //For dragging for debugging
+
+        //Post Office
+       mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.957069281655194,18.461346924304962))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_postoffice))
+
+        );
+
+        //Juta Bookshop
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.956998, 18.460559))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_juta))
+        );
+
+        //CPS
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.959210044710645,18.460659943521023))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_cps))
+
+        );
+
+        //Ridelink
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.959635, 18.462105))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_ridelink))
+        );
+
+        //Info
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.955926, 18.462393))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_info))
+        );
+
+        //Library
+       mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.95783209805089,18.460386022925377))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_library))
+                .draggable(true)
+        );
+
+        //Jammie Stop - North
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.955156787733095,18.46179485321045))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_jammie))
+
+        );
+
+        //Jammie Stop - West
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.957426357334214,18.459730222821236))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_jammie))
+
+        );
+
+        //Jammie Stop - South
+       mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.96041917104399,18.459826111793518))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_jammie))
+
+        );
+
+        //Jammie Stop - Drop Off
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.960539, 18.460524))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_jammie))
+        );
+
+        //ATMS
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(-33.95722390339486,18.46059925854206))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_atm))
+
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.959641, 18.460194))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_atm))
+
+        );
+
+        //Food
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.956904, 18.460757))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.957309, 18.460972))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng( -33.955575, 18.461325))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.959835, 18.460083))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.958476, 18.460096))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.957386, 18.462298))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.955888, 18.463084))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
+
+        mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.959206, 18.460155))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_food))
+        );
 
 
     }
+
+    //Drag Marker Listeners for Debugging
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+      //System.out.println(lib.getPosition());
+    }
+
 
     @Override
     protected void onResume() {
