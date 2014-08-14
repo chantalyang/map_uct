@@ -27,6 +27,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private String pollybebe = "";
+  
 
 
     @Override
@@ -176,6 +177,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_info))
         );
 
+        //Library
+       mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(-33.95783209805089,18.460386022925377))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_library))
+                .draggable(true)
+        );
+
         //Jammie Stop - North
         mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(-33.955156787733095,18.46179485321045))
@@ -273,9 +281,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapCli
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-      // System.out.println("South" + south.getPosition());
-      //System.out.println("West" + west.getPosition());
-      //  System.out.println(north.getPosition());
+      //System.out.println(lib.getPosition());
     }
 
 
